@@ -14,6 +14,12 @@ public class Topico {
 	private Usuario autor;
 	private Curso curso;
 	private List<Respuesta> respuestas = new ArrayList<>();
+	
+	
+
+	public Topico() {
+		super();
+	}
 
 	public Topico(String titulo, String mensaje, Curso curso) {
 		this.titulo = titulo;

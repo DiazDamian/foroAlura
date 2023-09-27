@@ -5,6 +5,12 @@ public class Curso {
 	private Long id;
 	private String nombre;
 	private String categoria;
+	
+	
+
+	public Curso() {
+		super();
+	}
 
 	public Curso(String nombre, String categoria) {
 		this.nombre = nombre;
