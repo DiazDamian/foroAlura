@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alura.topico.DatosActualizarTopico;
+import com.alura.topico.DatosRegistroTopico;
+
 public class Topico {
 
 	private Long id;
@@ -14,11 +17,22 @@ public class Topico {
 	private Usuario autor;
 	private Curso curso;
 	private List<Respuesta> respuestas = new ArrayList<>();
-
+	private int activo = 1;
+	
 	public Topico(String titulo, String mensaje, Curso curso) {
 		this.titulo = titulo;
 		this.mensaje = mensaje;
 		this.curso = curso;
+	}
+
+	public Topico(DatosRegistroTopico datosRegistroTopico) {
+		this.titulo = datosRegistroTopico.titulo();
+		this.mensaje = datosRegistroTopico.mensaje();
+		this.autor = datosRegistroTopico.autor();
+		this.curso = datosRegistroTopico.curso();
+		this.fechaCreacion = LocalDateTime.now();
+		this.status = StatusTopico.NO_RESPONDIDO;
+		this.activo=1;
 	}
 
 	@Override
@@ -108,6 +122,19 @@ public class Topico {
 
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
+	}
+
+	public void actualizarTopico(DatosActualizarTopico actualizarTopico) {
+		this.titulo=actualizarTopico.titulo();
+		this.mensaje=actualizarTopico.mensaje();
+		this.autor=actualizarTopico.autor();
+		this.curso=actualizarTopico.curso();
+		
+	}
+
+	public void desactivarTopico() {
+		this.activo = 0;
+		
 	}
 
 }
