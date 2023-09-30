@@ -1,1 +1,0 @@
-alter table topicos add activo int not null;
