@@ -4,14 +4,44 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alura.foro.DatosActualizarTopico;
+import com.alura.foro.DatosRecordTopico;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Table(name = "topicos")
+@Entity(name = "topico")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Topico {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", insertable = false, updatable = false)
 	private Long id;
 	private String titulo;
 	private String mensaje;
 	private LocalDateTime fechaCreacion = LocalDateTime.now();
+	@Enumerated(EnumType.STRING)
 	private StatusTopico status = StatusTopico.NO_RESPONDIDO;
+	@ManyToOne
 	private Usuario autor;
+	@ManyToOne
 	private Curso curso;
 	private List<Respuesta> respuestas = new ArrayList<>();
 
@@ -19,6 +49,13 @@ public class Topico {
 		this.titulo = titulo;
 		this.mensaje = mensaje;
 		this.curso = curso;
+	}
+
+	public Topico(DatosRecordTopico data) {
+		this.titulo=data.titulo();
+		this.mensaje=data.mensaje();
+		this.autor=data.autor();
+		this.curso=data.curso();
 	}
 
 	@Override
@@ -108,6 +145,13 @@ public class Topico {
 
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
+	}
+
+	public void actualizarDatos(@Valid DatosActualizarTopico datosActualizarTopico) {
+		this.titulo=datosActualizarTopico.titulo();
+		this.mensaje=datosActualizarTopico.mensaje();
+		this.autor=datosActualizarTopico.autor();
+		this.curso=datosActualizarTopico.curso();
 	}
 
 }

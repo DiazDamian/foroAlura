@@ -6,7 +6,9 @@ import com.alura.modelo.Usuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DatosRecordTopico(
+public record DatosActualizarTopico(
+		@NotNull
+		Long id,
 		@NotBlank
 		String titulo,
 		@NotBlank
